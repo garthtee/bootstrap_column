@@ -22,11 +22,11 @@ class Bootstrap_column extends WP_Widget {
   // widget form creation
   function form($instance)
   {
-    if(instance)
+    if($instance)
     {
       $title = esc_attr($instance['title']);
       $icon = esc_attr($instance['icon']);
-      $text = sanitize_text_field($instance['text']);
+      $text = esc_textarea($instance['text']);
       // columns
       $lg = esc_attr($instance['lg']);
       $md = esc_attr($instance['md']);
@@ -39,7 +39,7 @@ class Bootstrap_column extends WP_Widget {
       $icon = 'check'; // fa-check http://fontawesome.io/icon/check/
       $text = '';
       // columns
-      $lg = 12;
+      $lg = '12';
       $md = '12';
       $sm = '12';
       $xs = '12';  
@@ -62,6 +62,7 @@ class Bootstrap_column extends WP_Widget {
 </p>
 
 <h4>Display</h4>
+
 
 <p>
 <label for="<?php echo $this->get_field_id('lg'); ?>"><?php _e('Large (col-lg-x)', 'bootstrap_column'); ?></label>
@@ -128,7 +129,7 @@ class Bootstrap_column extends WP_Widget {
     // Fields
     $instance['icon'] = strip_tags($new_instance['icon']);
     $instance['title'] = strip_tags($new_instance['title']);
-    $instance['text'] = strip_tags($new_instance['text']);
+    $instance['text'] = sanitize_text_field($new_instance['text']);
 
     $instance['lg'] = strip_tags($new_instance['lg']);
     $instance['md'] = strip_tags($new_instance['md']);
@@ -171,8 +172,8 @@ class Bootstrap_column extends WP_Widget {
       echo $title . $after_title;
     }
 
-    if( $text ) {
-       echo '<p class="wp_widget_plugin_text">'.$text.'</p>';
+    if($text) {
+       echo '<p class="bootstrap_column_text">'.$text.'</p>';
     }
     
     echo '</div>';
@@ -183,5 +184,5 @@ class Bootstrap_column extends WP_Widget {
 }
 
 add_action( 'widgets_init', function(){
-     register_widget( 'Bootstrap_column' );
+     register_widget('Bootstrap_column');
 });
