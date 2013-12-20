@@ -66,7 +66,6 @@ class Bootstrap_column extends WP_Widget {
 
 <p>
 <label for="<?php echo $this->get_field_id('lg'); ?>"><?php _e('Large (col-lg-x)', 'bootstrap_column'); ?></label>
-<?php echo $lg;?>
 <select style="float:right" id="<?php echo $this->get_field_id('lg'); ?>" name="<?php echo $this->get_field_name('lg') ?>">
   <?php
   for($i=1;$i<=12;$i++)
@@ -158,13 +157,12 @@ class Bootstrap_column extends WP_Widget {
     $col_class = '';    
     foreach($col as $key => $val)
     {
-      if($val == '12') continue;
+      if($val == '12' && $key != 'lg') continue; // default to col-lg-12
       $col_class .= ' col-'.$key.'-'.$val;
     }
     
-    echo $before_widget;
-    
     echo '<div class="bootstrap_column_box '.$col_class.'">';
+    echo $before_widget;
         
     if ( $title ) {
       echo $before_title;
@@ -174,11 +172,10 @@ class Bootstrap_column extends WP_Widget {
 
     if($text) {
        echo '<p class="bootstrap_column_text">'.$text.'</p>';
-    }
+    }    
+    echo $after_widget;
     
     echo '</div>';
-    
-    echo $after_widget;
   }
 
 }
